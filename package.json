@@ -1,0 +1,17 @@
+{
+  "name": "event-management-system",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "backend",
+    "infrastructure"
+  ],
+  "scripts": {
+    "build": "npm run build:frontend && npm run build --workspaces",
+    "build:frontend": "node scripts/build-frontend.mjs",
+    "synth": "npm run build && npm run synth --workspace infrastructure",
+    "deploy": "npm run build && npm run deploy --workspace infrastructure",
+    "auth-ui": "npm run build --workspace backend && npm run start:auth-ui --workspace backend"
+  }
+}

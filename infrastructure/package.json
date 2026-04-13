@@ -1,0 +1,20 @@
+{
+  "name": "@ems/infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy --all"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.196.0",
+    "constructs": "^10.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "aws-cdk": "^2.1016.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Admin Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg-sidebar:#1a1a2e;--bg-main:#f5f0e8;--bg-card:#fff;--bg-card-alt:#faf7f2;--text-primary:#1a1a2e;--text-secondary:#6b7280;--text-muted:#9ca3af;--text-sidebar:#fff;--text-sidebar-muted:#9b9bb4;--accent-primary:#1a1a2e;--accent-green:#4caf82;--accent-red:#ef4444;--accent-amber:#f59e0b;--accent-blue:#3b82f6;--border-light:#e8e2d9;--border-card:#f0ebe3;--sidebar-active-bg:rgba(255,255,255,.12);--sidebar-hover-bg:rgba(255,255,255,.07);--chart-bar:#1a1a2e;--chart-line:#e8e2d9;--chart-donut-1:#1a1a2e;--chart-donut-2:#9b9bb4;--chart-donut-3:#e8e2d9;--shadow-card:0 2px 12px rgba(26,26,46,.06);--shadow-sidebar:4px 0 24px rgba(26,26,46,.15);--radius-card:16px;--radius-input:10px;--sidebar-width:220px;--header-height:64px}
+    *{box-sizing:border-box;margin:0;padding:0}html,body{min-height:100%}body{font-family:"Sora","DM Sans",sans-serif;font-size:14px;background:var(--bg-main);color:var(--text-primary)}button,input{font:inherit}button{border:0;background:none;cursor:pointer}a{text-decoration:none;color:inherit}.material-symbols-outlined{font-variation-settings:"FILL" 0,"wght" 500,"GRAD" 0,"opsz" 24;line-height:1}
+    .shell{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-width);background:var(--bg-sidebar);color:var(--text-sidebar);padding:22px 16px 16px;display:flex;flex-direction:column;gap:18px;box-shadow:var(--shadow-sidebar);z-index:30;overflow-y:auto}.brand{padding:2px 4px 0}.brand-row{display:flex;align-items:center;gap:12px}.mark{width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.mark-inner{width:16px;height:16px;border-radius:5px;background:#fff;color:var(--bg-sidebar);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}.brand-title{font-size:16px;font-weight:700}.brand-sub{margin-top:6px;color:var(--text-sidebar-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}.sidebar-grow{flex:1;display:flex;flex-direction:column;gap:16px}.section-label{margin:6px 4px 4px;color:var(--text-sidebar-muted);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}.nav-list{display:grid;gap:2px}.nav-item{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 12px;border-radius:10px;color:var(--text-sidebar-muted);transition:background-color .2s ease,color .2s ease}.nav-item:hover{background:var(--sidebar-hover-bg);color:#fff}.nav-item.active{background:var(--sidebar-active-bg);color:#fff}.nav-item.danger:hover{color:#ff9a9a}.nav-item .material-symbols-outlined{font-size:18px}.nav-item span:last-child{font-size:14px;font-weight:500}
+    .promo{margin-top:auto;background:rgba(255,255,255,.08);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,.08)}.promo-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}.promo-title{font-size:12px;font-weight:700;line-height:1.4}.promo-chips{display:flex;gap:8px;margin-bottom:10px}.promo-chip{width:28px;height:28px;border-radius:999px;background:rgba(255,255,255,.11);display:flex;align-items:center;justify-content:center}.promo-copy{color:var(--text-sidebar-muted);font-size:11px;margin-bottom:12px}.promo-btn{width:100%;min-height:38px;border-radius:10px;background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:600}
+    .main{margin-left:var(--sidebar-width);min-height:100vh}.topbar{position:sticky;top:0;z-index:20;height:var(--header-height);background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-light);padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}.topbar-left{display:flex;align-items:center;gap:24px;min-width:0;flex:1}.menu-btn{display:none;width:38px;height:38px;border-radius:10px;background:var(--bg-card-alt);border:1px solid var(--border-light);color:var(--text-primary);align-items:center;justify-content:center}.page-meta{min-width:160px}.breadcrumb{color:var(--text-muted);font-size:11px}.page-title{font-size:20px;font-weight:700;margin-top:2px}.search{width:100%;max-width:320px;height:38px;background:var(--bg-card-alt);border:1px solid var(--border-light);border-radius:var(--radius-input);display:flex;align-items:center;padding:0 12px;gap:8px}.search:focus-within{border-color:var(--accent-blue)}.search input{flex:1;border:0;outline:0;background:transparent;color:var(--text-primary);font-size:13px}.search input::placeholder{color:var(--text-muted)}.topbar-right{display:flex;align-items:center;gap:12px;flex-shrink:0}.icon-btn{position:relative;width:38px;height:38px;border-radius:10px;background:var(--bg-card-alt);border:1px solid var(--border-light);color:var(--text-secondary);display:flex;align-items:center;justify-content:center}.icon-btn:hover{background:var(--border-light)}.action-shell{position:relative}.dot{position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--accent-red)}.dot.hidden{display:none}.notification-menu{position:absolute;top:calc(100% + 10px);right:0;width:320px;padding:12px;border-radius:16px;background:rgba(255,255,255,.96);border:1px solid var(--border-card);box-shadow:0 22px 50px rgba(26,26,46,.14);display:none;z-index:45}.notification-menu.open{display:block}.notification-head{padding:4px 8px 12px;border-bottom:1px solid var(--border-card);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}.notification-title{font-size:13px;font-weight:700;color:var(--text-primary)}.notification-count{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase}.notification-list{display:grid;gap:8px}.notification-item{padding:12px;border-radius:14px;background:var(--bg-card-alt);border:1px solid var(--border-light)}.notification-item-title{font-size:13px;font-weight:700;color:var(--text-primary)}.notification-item-copy{margin-top:6px;font-size:12px;line-height:1.45;color:var(--text-secondary)}.notification-item-time{margin-top:8px;font-size:11px;color:var(--text-muted)}.notification-empty{padding:24px 14px;border-radius:14px;background:var(--bg-card-alt);border:1px dashed var(--border-light);text-align:center;color:var(--text-secondary);font-size:13px;font-weight:600}.profile-shell{position:relative}.profile{min-height:38px;padding:5px 12px 5px 6px;border-radius:10px;background:var(--bg-card-alt);border:1px solid var(--border-light);display:flex;align-items:center;gap:8px}.profile.profile-trigger{min-width:252px;text-align:left;transition:border-color .2s ease,box-shadow .2s ease}.profile.profile-trigger:hover,.profile.profile-trigger[aria-expanded="true"]{border-color:#d8cfbf;box-shadow:0 8px 20px rgba(26,26,46,.08)}.profile-caret{font-size:14px;color:var(--text-muted);transition:transform .2s ease}.profile-trigger[aria-expanded="true"] .profile-caret{transform:rotate(180deg)}.profile-menu{position:absolute;top:calc(100% + 10px);right:0;width:280px;padding:12px;border-radius:16px;background:rgba(255,255,255,.96);border:1px solid var(--border-card);box-shadow:0 22px 50px rgba(26,26,46,.14);display:none;z-index:45}.profile-menu.open{display:block}.profile-menu-head{padding:6px 8px 12px;border-bottom:1px solid var(--border-card);margin-bottom:10px}.profile-menu-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}.profile-menu-id{margin-top:8px;padding:10px 12px;border-radius:12px;background:var(--bg-card-alt);border:1px solid var(--border-light);font-size:13px;font-weight:700;color:var(--text-primary)}.profile-menu-list{display:grid;gap:6px}.profile-menu-action{width:100%;min-height:42px;padding:0 12px;border-radius:12px;display:flex;align-items:center;gap:10px;color:var(--text-primary);background:transparent}.profile-menu-action:hover{background:var(--bg-card-alt)}.avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#1a1a2e,#3c3c60);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}.profile-text{display:flex;flex-direction:column;min-width:0;flex:1}.profile-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}.profile-email{color:var(--text-muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+    .content{padding:24px 28px 28px}.dashboard-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}.stack{display:grid;gap:20px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.card{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-card);box-shadow:var(--shadow-card)}.stat-card{min-height:100px;padding:20px;display:grid;align-content:space-between}.stat-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}.stat-icon{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);flex-shrink:0}.stat-label{color:var(--text-secondary);font-size:12px;font-weight:500}.stat-value{font-size:28px;font-weight:700;line-height:1.1}.trend{display:flex;align-items:center;gap:6px;font-size:11px;margin-top:8px;flex-wrap:wrap}.trend .positive{color:var(--accent-green);font-weight:600}.trend .negative{color:var(--accent-red);font-weight:600}.trend .muted{color:var(--text-muted)}
+    .card-head{padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}.card-title{font-size:15px;font-weight:700}.card-link{color:var(--accent-blue);font-size:12px;font-weight:500}.chart-frame{padding:18px 18px 6px}.chart-svg{display:block;width:100%;height:240px}.events-layout{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:14px;padding:14px 24px 24px}.events-list{display:grid;gap:10px}.event-card{position:relative;min-height:90px;border-radius:12px;overflow:hidden;display:flex;align-items:flex-end;color:#fff;padding:14px;isolation:isolate;background-size:cover;background-position:center}.event-card:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,16,.18),rgba(8,8,16,.72));z-index:-1}.event-about{position:absolute;top:10px;right:10px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.92);color:var(--text-primary);font-size:10px;font-weight:600}.event-title{font-size:13px;font-weight:700;margin-bottom:6px}.event-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:rgba(255,255,255,.88)}.event-item{display:inline-flex;align-items:center;gap:4px}.price{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.18);font-weight:500}.map{position:relative;min-height:190px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05)),linear-gradient(135deg,#c8d8a8 0%,#a8c890 50%,#88b878 100%);border:1px solid rgba(255,255,255,.24)}.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px);background-size:42px 42px;opacity:.55}.map-river{position:absolute;inset:18px 24px auto auto;width:70%;height:70%;border-radius:50%;border:10px solid rgba(255,255,255,.22);border-left-color:transparent;border-bottom-color:transparent;transform:rotate(12deg)}.map-pin{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px}.map-pin-icon{width:26px;height:26px;border-radius:999px;background:var(--accent-primary);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 18px rgba(26,26,46,.18)}.map-caption{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--text-primary);font-size:11px;font-weight:600}.loading-line,.loading-block{background:linear-gradient(90deg,#eee6dc 0%,#f8f4ee 50%,#eee6dc 100%);background-size:200% 100%;animation:loading-shimmer 1.3s ease-in-out infinite}.loading-line{display:block;border-radius:999px}.loading-line.sm{height:10px;width:74px}.loading-line.md{height:14px;width:118px}.loading-line.lg{height:34px;width:86px}.loading-block{border-radius:14px}.loading-chart{width:100%;height:216px;border-radius:18px}.loading-event-card{min-height:90px;padding:14px;border-radius:12px}.loading-event-card .loading-line{background:linear-gradient(90deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.42) 50%,rgba(255,255,255,.18) 100%);background-size:200% 100%}.loading-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.loading-chip{height:22px;width:88px;border-radius:999px;background:rgba(255,255,255,.18)}.loading-donut{background:linear-gradient(135deg,#ebe4db 0%,#f6f1ea 50%,#ebe4db 100%)!important}.loading-placeholder{color:var(--text-muted)}@keyframes loading-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .ticket{padding:20px 24px}.ticket-title{font-size:15px;font-weight:700;margin-bottom:14px}.donut-wrap{position:relative;width:210px;height:210px;margin:0 auto 12px}.donut{position:absolute;inset:20px;border-radius:50%;background:conic-gradient(var(--chart-donut-1) 0 50%,var(--chart-donut-2) 50% 80%,var(--chart-donut-3) 80% 100%)}.donut:after{content:"";position:absolute;inset:34px;border-radius:50%;background:var(--bg-card)}.leader-line{position:absolute;height:1px;background:var(--border-light);transform-origin:left center}.leader-line.r1{width:42px;right:38px;top:50px;transform:rotate(-22deg)}.leader-line.r2{width:42px;left:34px;top:60px;transform:rotate(204deg)}.leader-line.r3{width:36px;left:88px;bottom:42px;transform:rotate(90deg)}.leader{position:absolute;font-size:12px;font-weight:600}.leader.a{right:-2px;top:28px}.leader.b{left:2px;top:42px}.leader.c{left:84px;bottom:18px}.ticket-legend{display:grid;gap:10px;margin:10px 0 16px}.ticket-legend-item{display:flex;align-items:center;gap:10px;color:var(--text-secondary);font-size:12px}.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}.ticket-stats{display:grid}.ticket-row{min-height:42px;border-top:1px solid var(--border-card);display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;color:var(--text-secondary)}.ticket-meta{display:inline-flex;align-items:center;gap:10px}.ticket-value{color:var(--text-primary);font-weight:700}
+    .calendar{padding:20px 24px 24px}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.calendar-title{font-size:13px;font-weight:700}.calendar-sub{margin-top:4px;color:var(--text-muted);font-size:12px}.calendar-actions{display:flex;gap:8px}.calendar-arrow{width:28px;height:28px;border-radius:999px;background:var(--bg-card-alt);border:1px solid var(--border-card);color:var(--text-secondary);display:flex;align-items:center;justify-content:center}.calendar-grid{margin-top:16px;display:grid;grid-template-columns:repeat(7,1fr);gap:8px 6px;justify-items:center}.calendar-label{color:var(--text-muted);font-size:11px;font-weight:600}.calendar-day{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-primary);font-size:13px;transition:background-color .2s ease,color .2s ease}.calendar-day:hover{background:var(--bg-card-alt)}.calendar-day.muted{color:var(--text-muted)}.calendar-day.today{background:var(--accent-primary);color:#fff;font-weight:700}.calendar-day.selected{box-shadow:inset 0 0 0 1px var(--border-light)}
+    .fab{position:fixed;right:28px;bottom:28px;width:60px;height:60px;border-radius:999px;background:var(--accent-primary);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 28px rgba(26,26,46,.22);z-index:35;transition:transform .2s ease,background-color .2s ease}.fab:hover{background:#2d2d4a;transform:translateY(-2px)}.fab .material-symbols-outlined{font-size:28px;font-variation-settings:"FILL" 1,"wght" 500,"GRAD" 0,"opsz" 24}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(26,26,46,.22);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;z-index:40}.modal-backdrop.open{display:flex}.modal-card{width:min(560px,100%);background:var(--bg-card);border:1px solid var(--border-card);border-radius:20px;box-shadow:0 24px 60px rgba(26,26,46,.16);padding:24px}.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}.modal-title{font-size:18px;font-weight:700}.modal-sub{margin-top:6px;color:var(--text-secondary);font-size:12px;line-height:1.5}.modal-close{width:36px;height:36px;border-radius:12px;background:var(--bg-card-alt);border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;color:var(--text-secondary)}
+    .create-modal-card{width:min(520px,100%);max-height:min(88vh,760px);display:flex;flex-direction:column;padding:20px 20px 18px}.profile-modal-card{width:min(440px,100%)}.profile-summary{display:flex;align-items:center;gap:16px;margin-bottom:18px}.profile-summary .avatar{width:54px;height:54px;font-size:18px}.profile-summary-copy{display:grid;gap:4px}.profile-role{display:inline-flex;align-items:center;width:max-content;padding:5px 10px;border-radius:999px;background:var(--bg-card-alt);border:1px solid var(--border-light);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary)}.profile-grid{display:grid;gap:12px}.profile-field{padding:14px 16px;border-radius:14px;background:var(--bg-card-alt);border:1px solid var(--border-light)}.profile-field-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}.profile-field-value{margin-top:8px;font-size:14px;font-weight:600;color:var(--text-primary);word-break:break-word}
+    .modal-form{display:grid;gap:14px}.create-modal-form{flex:1;min-height:0;overflow-y:auto;padding-right:6px;margin-right:-6px}.modal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:grid;gap:8px}.field label{color:var(--text-secondary);font-size:12px;font-weight:600}.field input,.field textarea,.field select{width:100%;border:1px solid var(--border-light);border-radius:var(--radius-input);background:var(--bg-card-alt);color:var(--text-primary);padding:12px 14px;outline:0}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent-blue)}.field textarea{min-height:96px;resize:vertical}.field.full{grid-column:1/-1}.checkbox-row{display:flex;align-items:center;gap:10px;color:var(--text-secondary);font-size:12px}.checkbox-row input{width:16px;height:16px;accent-color:var(--accent-primary)}.field-subgrid{display:grid;gap:10px}.switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text-secondary);font-size:12px}.switch{width:44px;height:24px;border-radius:999px;background:#c7cbd3;position:relative;transition:background-color .2s ease;flex-shrink:0}.switch:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s ease}.switch.on{background:var(--accent-green)}.switch.on:after{transform:translateX(20px)}.prefix-input{position:relative}.prefix-input span{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text-muted)}.prefix-input input{padding-left:26px}.prefix-input.disabled{opacity:.55}.chip-input{border:1px solid var(--border-light);border-radius:var(--radius-input);background:var(--bg-card-alt);padding:10px;display:grid;gap:8px}.chip-wrap{display:flex;gap:8px;flex-wrap:wrap}.chip{display:inline-flex;align-items:center;gap:6px;border-radius:6px;background:var(--bg-card);border:1px solid var(--border-card);padding:4px 10px;font-size:12px;color:var(--text-primary)}.chip-remove{font-size:14px;color:var(--text-muted)}.chip-input input{border:0;outline:0;background:transparent;min-height:24px;padding:0}.file-upload{position:relative;display:flex;align-items:center;justify-content:center;min-height:118px;border:1px dashed #d8cfbf;border-radius:14px;background:var(--bg-card-alt);padding:16px;text-align:center}.file-upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}.file-upload-copy{display:grid;gap:8px;justify-items:center;color:var(--text-secondary)}.file-upload-title{font-size:13px;font-weight:700;color:var(--text-primary)}.file-upload-sub{font-size:12px;line-height:1.45}.upload-meta{display:grid;gap:6px}.upload-chip{display:inline-flex;align-items:center;gap:6px;width:max-content;padding:6px 10px;border-radius:999px;background:#eef5f1;color:#2f6b54;font-size:11px;font-weight:700}.upload-note{font-size:11px;color:var(--text-muted)}
+    .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}.btn-secondary,.btn-primary{min-height:42px;padding:0 18px;border-radius:10px;font-size:13px;font-weight:600}.btn-secondary{background:var(--bg-card-alt);border:1px solid var(--border-light);color:var(--text-primary)}.btn-primary{background:var(--accent-primary);color:#fff}.btn-primary:hover{background:#2d2d4a}.btn-secondary:hover{background:#f1ece6}.form-note{color:var(--text-muted);font-size:11px}
+    .banner{margin-bottom:16px;padding:14px 16px;border-radius:12px;border:1px solid #f1d4d4;background:#fff4f4;color:#a23e3e;font-size:13px;font-weight:500}
+    @media (max-width:1200px){.dashboard-grid{grid-template-columns:1fr}.events-layout{grid-template-columns:1fr}}@media (max-width:1024px){.sidebar{transform:translateX(-100%);transition:transform .25s ease}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.menu-btn{display:inline-flex}}@media (max-width:900px){.topbar{height:auto;min-height:var(--header-height);padding:14px 18px;flex-wrap:wrap}.topbar-left,.topbar-right{width:100%}.topbar-left{gap:16px}.search{max-width:none}.content{padding:20px 18px 24px}.stats{grid-template-columns:1fr}}@media (max-width:640px){.profile{width:100%;justify-content:space-between}.topbar-right{flex-wrap:wrap}.modal-grid{grid-template-columns:1fr}.create-modal-card{width:min(100%,420px);max-height:90vh;padding:18px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-row">
+          <span class="mark"><span class="mark-inner">G</span></span>
+          <div>
+            <div class="brand-title">EMS</div>
+            <div class="brand-sub">Event Manager</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-grow">
+        <div>
+          <div class="section-label">Menu</div>
+          <nav class="nav-list">
+            <a class="nav-item active" href="/dashboard.html"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+            <a class="nav-item" href="/events.html"><span class="material-symbols-outlined">calendar_month</span><span>Events</span></a>
+            <a class="nav-item" href="/attendee-insights.html"><span class="material-symbols-outlined">bar_chart</span><span>Attendee Insights</span></a>
+          </nav>
+        </div>
+        <div>
+          <div class="section-label">General</div>
+          <nav class="nav-list">
+            <a class="nav-item" href="/settings.html"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
+            <a class="nav-item" href="/help.html"><span class="material-symbols-outlined">help</span><span>Help</span></a>
+            <button class="nav-item danger" id="logout-button" type="button"><span class="material-symbols-outlined">logout</span><span>Logout</span></button>
+          </nav>
+        </div>
+      </div>
+      <div class="promo">
+        <div class="promo-top"><span class="mark" style="width:30px;height:30px;border-radius:10px;"><span class="mark-inner">G</span></span><div class="promo-title">Download Our Mobile App</div></div>
+        <div class="promo-chips"><span class="promo-chip"><span class="material-symbols-outlined" style="font-size:16px;">smartphone</span></span><span class="promo-chip"><span class="material-symbols-outlined" style="font-size:16px;">download</span></span></div>
+        <div class="promo-copy">Get another easy way</div>
+        <button class="promo-btn" type="button">Download Now</button>
+      </div>
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-btn" id="menu-button" type="button" aria-label="Open menu"><span class="material-symbols-outlined">menu</span></button>
+          <div class="page-meta">
+            <div class="breadcrumb" id="breadcrumb-label">Dashboard</div>
+            <div class="page-title" id="dashboard-page-title">Dashboard</div>
+          </div>
+          <label class="search" aria-label="Search"><span class="material-symbols-outlined" style="font-size:15px;color:var(--text-muted);">search</span><input type="search" placeholder="Search..." /></label>
+        </div>
+          <div class="topbar-right">
+          <button class="icon-btn" type="button" aria-label="Messages"><span class="material-symbols-outlined" style="font-size:17px;">mail</span></button>
+          <div class="action-shell">
+            <button class="icon-btn" id="notifications-trigger" type="button" aria-label="Notifications" aria-haspopup="menu" aria-expanded="false">
+              <span class="dot hidden" id="notifications-dot"></span>
+              <span class="material-symbols-outlined" style="font-size:17px;">notifications</span>
+            </button>
+            <div class="notification-menu" id="notifications-menu" role="menu" aria-hidden="true">
+              <div class="notification-head">
+                <div class="notification-title">Notifications</div>
+                <div class="notification-count" id="notifications-count">0 New</div>
+              </div>
+              <div class="notification-list" id="notifications-list">
+                <div class="notification-empty">No new notifications</div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-shell">
+            <button class="profile profile-trigger" id="profile-trigger" type="button" aria-haspopup="menu" aria-expanded="false">
+              <span class="avatar" id="header-avatar">SD</span>
+              <span class="profile-text">
+                <span class="profile-name" id="dashboard-user-name">Shareef Deen</span>
+                <span class="profile-email" id="dashboard-user-email">shareef20@gmail.com</span>
+              </span>
+              <span class="material-symbols-outlined profile-caret">expand_more</span>
+            </button>
+            <div class="profile-menu" id="profile-menu" role="menu" aria-hidden="true">
+              <div class="profile-menu-head">
+                <div class="profile-menu-label">Profile ID</div>
+                <div class="profile-menu-id" id="profile-menu-id">EMS-ADM-000000</div>
+              </div>
+              <div class="profile-menu-list">
+                <button class="profile-menu-action" id="profile-view-button" type="button" role="menuitem">
+                  <span class="material-symbols-outlined" style="font-size:18px;">badge</span>
+                  <span>View Profile</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="content">
+        <div id="dashboard-feedback"></div>
+        <div class="dashboard-grid">
+          <section class="stack">
+            <div class="stats">
+              <article class="card stat-card">
+                <div class="stat-top"><span class="stat-icon" style="background:#f0ebe3;"><span class="material-symbols-outlined" style="font-size:18px;">calendar_month</span></span><div class="stat-label">Total Events</div></div>
+                <div><div class="stat-value loading-placeholder" id="metric-total-events">--</div><div class="trend"><span class="muted" id="trend-total-events">Loading...</span></div></div>
+              </article>
+              <article class="card stat-card">
+                <div class="stat-top"><span class="stat-icon" style="background:#e8f5ee;"><span class="material-symbols-outlined" style="font-size:18px;">confirmation_number</span></span><div class="stat-label">Tickets Sold</div></div>
+                <div><div class="stat-value loading-placeholder" id="metric-tickets-sold">--</div><div class="trend"><span class="muted" id="trend-tickets-sold">Loading...</span></div></div>
+              </article>
+              <article class="card stat-card">
+                <div class="stat-top"><span class="stat-icon" style="background:#fef3cd;"><span class="material-symbols-outlined" style="font-size:18px;">event_upcoming</span></span><div class="stat-label">Upcoming Events</div></div>
+                <div><div class="stat-value loading-placeholder" id="metric-upcoming-events">--</div><div class="trend"><span class="muted" id="trend-upcoming-events">Loading...</span></div></div>
+              </article>
+            </div>
+            <article class="card">
+              <div class="card-head"><h3 class="card-title">Revenue Breakdown</h3><a class="card-link" href="#">see details</a></div>
+              <div class="chart-frame"><svg class="chart-svg" id="revenue-chart" viewBox="0 0 760 240" aria-label="Revenue breakdown chart"></svg></div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h3 class="card-title">Upcoming Events</h3><a class="card-link" href="#">More</a></div>
+              <div class="events-layout">
+                <div class="events-list" id="upcoming-events-list"></div>
+                <div class="map">
+                  <div class="map-grid"></div>
+                  <div class="map-river"></div>
+                  <div class="map-pin"><span class="map-pin-icon"><span class="material-symbols-outlined" style="font-size:16px;">location_on</span></span><span class="map-caption" id="map-event-caption">Loading events...</span></div>
+                </div>
+              </div>
+            </article>
+          </section>
+          <aside class="stack">
+            <article class="card ticket">
+              <h3 class="ticket-title">Ticket Summary</h3>
+              <div class="donut-wrap">
+                <div class="donut" id="donut-chart"></div>
+                <div class="leader-line r1"></div>
+                <div class="leader-line r2"></div>
+                <div class="leader-line r3"></div>
+                <div class="leader a" id="donut-percent-1">--</div>
+                <div class="leader b" id="donut-percent-2">--</div>
+                <div class="leader c" id="donut-percent-3">--</div>
+              </div>
+              <div class="ticket-legend">
+                <div class="ticket-legend-item"><span class="legend-dot" style="background:var(--chart-donut-1);"></span><span id="donut-label-1">Loading</span></div>
+                <div class="ticket-legend-item"><span class="legend-dot" style="background:var(--chart-donut-2);"></span><span id="donut-label-2">Loading</span></div>
+                <div class="ticket-legend-item"><span class="legend-dot" style="background:var(--chart-donut-3);border:1px solid var(--border-light);"></span><span id="donut-label-3">Loading</span></div>
+              </div>
+              <div class="ticket-stats">
+                <div class="ticket-row"><div class="ticket-meta"><span class="material-symbols-outlined" style="font-size:16px;">confirmation_number</span><span>Total Ticket Sold</span></div><span class="ticket-value loading-placeholder" id="ticket-total-sold">--</span></div>
+                <div class="ticket-row"><div class="ticket-meta"><span class="material-symbols-outlined" style="font-size:16px;">payments</span><span>Total Revenue</span></div><span class="ticket-value loading-placeholder" id="ticket-total-revenue">--</span></div>
+                <div class="ticket-row"><div class="ticket-meta"><span class="material-symbols-outlined" style="font-size:16px;">donut_small</span><span>Conversation Rate</span></div><span class="ticket-value loading-placeholder" id="ticket-conversion-rate">--</span></div>
+              </div>
+            </article>
+            <article class="card calendar">
+              <div class="calendar-head">
+                <div><div class="calendar-title" id="calendar-title">October 29, 2025</div><div class="calendar-sub">Today</div></div>
+                <div class="calendar-actions">
+                  <button class="calendar-arrow" id="calendar-prev" type="button" aria-label="Previous month"><span class="material-symbols-outlined" style="font-size:16px;">chevron_left</span></button>
+                  <button class="calendar-arrow" id="calendar-next" type="button" aria-label="Next month"><span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span></button>
+                </div>
+              </div>
+              <div class="calendar-grid" id="calendar-grid"></div>
+            </article>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+  <button class="fab" id="create-event-button" type="button" aria-label="Create new event">
+    <span class="material-symbols-outlined">add</span>
+  </button>
+  <div class="modal-backdrop" id="create-event-modal" aria-hidden="true">
+    <div class="modal-card create-modal-card" role="dialog" aria-modal="true" aria-labelledby="create-event-title">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" id="create-event-title">Create New Event</div>
+          <div class="modal-sub">Add a real event to the system and it will immediately appear across the dashboard.</div>
+        </div>
+        <button class="modal-close" id="create-event-close" type="button" aria-label="Close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form class="modal-form create-modal-form" id="create-event-form">
+        <div class="modal-grid">
+          <div class="field full">
+            <label for="event-title-input">Event Title</label>
+            <input id="event-title-input" name="title" type="text" placeholder="AI Innovation Summit" required />
+          </div>
+          <div class="field">
+            <label for="event-type-input">Event Category</label>
+            <select id="event-type-input" name="eventType" required>
+              <option value="Food & Culinary">Food & Culinary</option>
+              <option value="Technology">Technology</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Music">Music</option>
+              <option value="Outdoor & Adventure">Outdoor & Adventure</option>
+              <option value="Health & Fitness">Health & Fitness</option>
+              <option value="Sports">Sports</option>
+              <option value="Workshop">Workshop</option>
+              <option value="Seminar">Seminar</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="event-venue-input">Venue</label>
+            <input id="event-venue-input" name="venue" type="text" placeholder="Main Auditorium" required />
+          </div>
+          <div class="field">
+            <label>Price</label>
+            <div class="field-subgrid">
+              <div class="switch-row">
+                <span>Free Event</span>
+                <button class="switch" id="event-free-toggle" type="button" aria-pressed="false"></button>
+              </div>
+              <div class="prefix-input" id="event-price-shell">
+                <span>$</span>
+                <input id="event-price-input" name="price" type="number" min="0" step="1" placeholder="20" />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="event-date-input">Event Date</label>
+            <input id="event-date-input" name="eventDate" type="date" required />
+          </div>
+          <div class="field">
+            <label for="event-capacity-input">Max Capacity</label>
+            <input id="event-capacity-input" name="maxCapacity" type="number" min="1" step="1" placeholder="120" required />
+          </div>
+          <div class="field">
+            <label for="event-start-time-input">Start Time</label>
+            <input id="event-start-time-input" name="startTime" type="time" required />
+          </div>
+          <div class="field">
+            <label for="event-end-time-input">End Time</label>
+            <input id="event-end-time-input" name="endTime" type="time" required />
+          </div>
+          <div class="field">
+            <label for="event-department-input">Department</label>
+            <select id="event-department-input" name="departmentFilter">
+              <option value="">All Departments</option>
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+              <option value="MBA">MBA</option>
+              <option value="Civil">Civil</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Design">Design</option>
+              <option value="Law">Law</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="event-tags-chip-input">Tags</label>
+            <div class="chip-input">
+              <div class="chip-wrap" id="event-tags-wrap"></div>
+              <input id="event-tags-chip-input" type="text" placeholder="Press Enter to add tag" />
+              <input id="event-tags-input" name="tags" type="hidden" />
+            </div>
+          </div>
+          <div class="field full">
+            <label for="event-description-input">Description</label>
+            <textarea id="event-description-input" name="description" placeholder="Write a short description for the event..."></textarea>
+          </div>
+          <div class="field">
+            <label for="event-deadline-input">Registration Deadline</label>
+            <input id="event-deadline-input" name="registrationDeadline" type="datetime-local" />
+          </div>
+          <div class="field">
+            <label for="event-poster-input">Poster URL</label>
+            <input id="event-poster-input" name="posterUrl" type="url" placeholder="https://example.com/poster.jpg" />
+          </div>
+          <div class="field full">
+            <label for="event-banner-file">Banner Image</label>
+            <div class="file-upload">
+              <input id="event-banner-file" name="bannerFile" type="file" accept="image/png,image/jpeg" />
+              <div class="file-upload-copy">
+                <span class="material-symbols-outlined" style="font-size:28px;color:var(--text-muted);">image</span>
+                <div class="file-upload-title">Upload event banner</div>
+                <div class="file-upload-sub">Choose a PNG or JPG banner to show on the dashboard card after creation.</div>
+              </div>
+            </div>
+            <div class="upload-meta">
+              <div class="upload-chip" id="event-banner-status">No banner selected</div>
+              <div class="upload-note">You can either upload a banner here or keep using the poster URL option above.</div>
+            </div>
+          </div>
+          <div class="field full">
+            <label class="checkbox-row" for="event-public-input">
+              <input id="event-public-input" name="isPublic" type="checkbox" checked />
+              <span>Show this event publicly</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-note">Admins create events as approved immediately in the current backend.</div>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="create-event-cancel" type="button">Cancel</button>
+          <button class="btn-primary" id="create-event-submit" type="submit">Done</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-backdrop" id="profile-modal" aria-hidden="true">
+    <div class="modal-card profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" id="profile-modal-title">My Profile</div>
+          <div class="modal-sub">Your personal EMS identity stays linked to this account every time you sign in.</div>
+        </div>
+        <button class="modal-close" id="profile-modal-close" type="button" aria-label="Close profile">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="profile-summary">
+        <span class="avatar" id="profile-modal-avatar">SD</span>
+        <div class="profile-summary-copy">
+          <div class="profile-name" id="profile-modal-name">Shareef Deen</div>
+          <div class="profile-email" id="profile-modal-email">shareef20@gmail.com</div>
+          <div class="profile-role" id="profile-modal-role">Admin</div>
+        </div>
+      </div>
+      <div class="profile-grid">
+        <div class="profile-field">
+          <div class="profile-field-label">Unique EMS ID</div>
+          <div class="profile-field-value" id="profile-modal-id">EMS-ADM-000000</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-field-label">Department</div>
+          <div class="profile-field-value" id="profile-modal-department">Not added yet</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-field-label">Joined</div>
+          <div class="profile-field-value" id="profile-modal-created">Just now</div>
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top:18px;">
+        <button class="btn-primary" id="profile-modal-done" type="button">Done</button>
+      </div>
+    </div>
+  </div>
+  <script src="./ems-config.js"></script>
+  <script src="./ems-realtime.js"></script>
+  <script src="./dashboard-page.js"></script>
+</body>
+</html>

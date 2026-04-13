@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Teacher Portal - Event Detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css?v=1776076084752" />
+</head>
+<body data-page="my-events" data-title="Event Detail" data-breadcrumb="My Events / Event Detail">
+  <div id="teacher-page-content" hidden>
+    <div class="teacher-grid" style="max-width:900px;margin:0 auto;">
+      <article class="teacher-card teacher-hero-card" id="teacher-event-hero"></article>
+      <article class="teacher-card" id="teacher-event-action-bar" style="padding:16px 24px;"></article>
+      <div class="teacher-two-column">
+        <section class="teacher-grid">
+          <article class="teacher-card" id="teacher-event-details-card" style="padding:20px 24px;"></article>
+          <article class="teacher-card" id="teacher-staff-card" style="padding:20px 24px;"></article>
+        </section>
+        <aside class="teacher-grid">
+          <article class="teacher-card teacher-sticky" id="teacher-registration-card" style="padding:20px 24px;"></article>
+          <article class="teacher-card" id="teacher-quick-actions" style="padding:20px;"></article>
+        </aside>
+      </div>
+    </div>
+  </div>
+  <script src="./ems-config.js?v=1776076084752"></script>
+  <script src="./ems-realtime.js?v=1776076084752"></script>
+  <script src="./teacher-shared.js?v=1776076084752"></script>
+  <script src="./teacher-event-detail-page.js?v=1776076084752"></script>
+</body>
+</html>

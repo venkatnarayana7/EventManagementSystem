@@ -1,0 +1,27 @@
+{
+  "name": "@ems/backend",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node ../scripts/build-lambda-assets.mjs",
+    "start:auth-ui": "node dist/server/src/index.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.821.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.821.0",
+    "@aws-sdk/client-dynamodb": "^3.821.0",
+    "@aws-sdk/client-lambda": "^3.821.0",
+    "@aws-sdk/client-eventbridge": "^3.821.0",
+    "@aws-sdk/client-s3": "^3.821.0",
+    "@aws-sdk/client-ses": "^3.821.0",
+    "@aws-sdk/lib-dynamodb": "^3.821.0",
+    "@aws-sdk/s3-request-presigner": "^3.821.0",
+    "zod": "^3.25.23"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.148",
+    "@types/node": "^22.15.21",
+    "typescript": "^5.8.3"
+  }
+}

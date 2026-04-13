@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Student Portal - Browse Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css" />
+</head>
+<body data-page="browse" data-title="Browse Events" data-breadcrumb="Browse Events">
+  <div id="student-page-content" hidden>
+    <div class="teacher-grid">
+      <article class="teacher-card" style="padding:20px 24px;">
+        <div class="teacher-filter-row" style="justify-content:space-between;">
+          <div>
+            <div class="teacher-card-title">Browse Events</div>
+            <div class="teacher-card-sub" id="student-browse-count">0 events available</div>
+          </div>
+          <div class="teacher-filter-row">
+            <input id="student-browse-search" placeholder="Search events" style="min-height:36px;border:1px solid var(--border-light);border-radius:999px;padding:0 14px;background:var(--bg-card);" />
+            <select id="student-browse-category" class="teacher-filter-pill"><option value="all">All Category</option></select>
+            <select id="student-browse-period" class="teacher-filter-pill"><option value="all">This Month</option><option value="all-time">All Time</option></select>
+          </div>
+        </div>
+      </article>
+      <div class="teacher-tab-row" id="student-browse-tabs"></div>
+      <div class="teacher-grid-cards" id="student-browse-grid"></div>
+    </div>
+  </div>
+  <script src="./ems-config.js"></script>
+  <script src="./ems-realtime.js"></script>
+  <script src="./student-shared.js"></script>
+  <script src="./student-browse-events-page.js"></script>
+</body>
+</html>

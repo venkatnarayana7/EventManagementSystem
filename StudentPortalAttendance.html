@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Student Portal - My Attendance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css" />
+</head>
+<body data-page="attendance" data-title="My Attendance" data-breadcrumb="My Attendance">
+  <div id="student-page-content" hidden>
+    <div class="teacher-grid">
+      <div class="teacher-stat-grid" id="student-attendance-stats"></div>
+      <article class="teacher-card" style="padding:20px 24px;">
+        <div class="teacher-card-head"><div class="teacher-card-title">Attendance History</div></div>
+        <div class="teacher-grid" id="student-attendance-list"></div>
+      </article>
+      <article class="teacher-card" style="padding:20px 24px;">
+        <div class="teacher-card-head"><div class="teacher-card-title">Attendance Certificate</div></div>
+        <div class="teacher-card-sub">Download your complete attendance record for this semester.</div>
+        <div style="margin-top:16px;">
+          <button class="teacher-btn" id="student-attendance-download" type="button"><span class="material-symbols-outlined" style="font-size:18px;">download</span><span>Download PDF Report</span></button>
+        </div>
+      </article>
+    </div>
+  </div>
+  <script src="./ems-config.js"></script>
+  <script src="./ems-realtime.js"></script>
+  <script src="./student-shared.js"></script>
+  <script src="./student-attendance-page.js"></script>
+</body>
+</html>

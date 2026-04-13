@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Student Portal - Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css?v=1776076084752" />
+</head>
+<body data-page="dashboard" data-title="Dashboard" data-breadcrumb="Dashboard">
+  <div id="student-page-content" hidden>
+    <div class="teacher-dashboard-grid">
+      <section class="teacher-grid">
+        <article class="teacher-card" id="student-welcome-banner" style="padding:24px 28px;background:linear-gradient(135deg,#1A1A2E 0%,#2D2D4A 100%);color:#fff;"></article>
+        <div class="teacher-stat-grid" id="student-stat-grid"></div>
+        <article class="teacher-card" style="padding:20px 24px;">
+          <div class="teacher-card-head">
+            <div><div class="teacher-card-title">My Upcoming Events</div></div>
+            <a class="teacher-link" href="student-registrations.html">View All</a>
+          </div>
+          <div class="teacher-list" id="student-upcoming-events"></div>
+        </article>
+        <article class="teacher-card" style="padding:20px 24px;">
+          <div class="teacher-card-head">
+            <div><div class="teacher-card-title">Recommended For You</div><div class="teacher-card-sub">Based on your department and live event openings.</div></div>
+          </div>
+          <div class="teacher-list" id="student-recommended-events"></div>
+        </article>
+      </section>
+      <aside class="teacher-grid">
+        <article class="teacher-card" style="padding:20px 24px;">
+          <div class="teacher-card-head">
+            <div style="display:flex;align-items:center;gap:10px;"><span class="material-symbols-outlined" style="font-size:20px;color:var(--accent-amber);">bolt</span><div class="teacher-card-title">Live Updates</div></div>
+            <span class="teacher-badge rejected" style="background:#FEE2E2;color:#EF4444;">Live</span>
+          </div>
+          <div class="teacher-card-sub">Real-time campus event activity from the shared portal.</div>
+          <div class="teacher-list" id="student-live-feed" style="margin-top:12px;"></div>
+        </article>
+        <article class="teacher-card calendar">
+          <div class="calendar-head">
+            <div>
+              <div class="calendar-title" id="student-calendar-title">Calendar</div>
+              <div class="calendar-sub" id="student-calendar-subtitle">Select a date to filter your dashboard events.</div>
+            </div>
+            <div class="calendar-actions">
+              <button class="calendar-arrow" id="student-calendar-prev" type="button" aria-label="Previous month"><span class="material-symbols-outlined" style="font-size:16px;">chevron_left</span></button>
+              <button class="calendar-arrow" id="student-calendar-next" type="button" aria-label="Next month"><span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span></button>
+            </div>
+          </div>
+          <div class="calendar-grid" id="student-calendar"></div>
+        </article>
+      </aside>
+    </div>
+  </div>
+  <script src="./ems-config.js?v=1776076084752"></script>
+  <script src="./ems-realtime.js?v=1776076084752"></script>
+  <script src="./student-shared.js?v=1776076084752"></script>
+  <script src="./student-dashboard-page.js?v=1776076084752"></script>
+</body>
+</html>

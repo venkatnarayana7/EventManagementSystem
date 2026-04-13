@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Teacher Portal - Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css?v=1776076084752" />
+</head>
+<body data-page="dashboard" data-title="Dashboard" data-breadcrumb="Dashboard">
+  <div id="teacher-page-content" hidden>
+    <div class="teacher-dashboard-grid">
+      <section class="teacher-grid">
+        <div class="teacher-stat-grid" id="teacher-stat-grid"></div>
+        <article class="teacher-card" style="padding:20px 24px;">
+          <div class="teacher-card-head">
+            <div><div class="teacher-card-title">My Upcoming Events</div></div>
+            <a class="teacher-link" href="teacher-my-events.html">View All</a>
+          </div>
+          <div class="teacher-list" id="teacher-upcoming-events"></div>
+        </article>
+        <article class="teacher-card" style="padding:20px 24px;">
+          <div class="teacher-card-head"><div class="teacher-card-title">Events Overview</div></div>
+          <div style="display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;align-items:center;" id="teacher-overview-card"></div>
+        </article>
+      </section>
+      <aside class="teacher-grid">
+        <article class="teacher-card" style="padding:20px 24px;">
+          <div class="teacher-card-head">
+            <div style="display:flex;align-items:center;gap:10px;"><span class="material-symbols-outlined" style="font-size:20px;color:var(--accent-blue);">groups</span><div class="teacher-card-title">Staff Invites</div></div>
+            <span class="teacher-badge pending" id="teacher-invite-count">0</span>
+          </div>
+          <div class="teacher-card-sub">You have been invited to coordinate these events as staff.</div>
+          <div class="teacher-list" id="teacher-invites-list" style="margin-top:12px;"></div>
+        </article>
+        <article class="teacher-card" style="padding:20px 24px;">
+          <div class="teacher-card-head">
+            <div style="display:flex;align-items:center;gap:10px;"><span class="material-symbols-outlined" style="font-size:20px;color:var(--accent-amber);">checklist</span><div class="teacher-card-title">Attendance Pending</div></div>
+            <span class="teacher-badge rejected" id="teacher-attendance-count">0</span>
+          </div>
+          <div class="teacher-card-sub">These past events need attendance to be marked.</div>
+          <div class="teacher-list" id="teacher-attendance-list" style="margin-top:12px;"></div>
+        </article>
+        <article class="teacher-card calendar">
+          <div class="calendar-head">
+            <div>
+              <div class="calendar-title" id="teacher-calendar-title">Calendar</div>
+              <div class="calendar-sub" id="teacher-calendar-subtitle">Select a date to filter dashboard events.</div>
+            </div>
+            <div class="calendar-actions">
+              <button class="calendar-arrow" id="teacher-calendar-prev" type="button" aria-label="Previous month"><span class="material-symbols-outlined" style="font-size:16px;">chevron_left</span></button>
+              <button class="calendar-arrow" id="teacher-calendar-next" type="button" aria-label="Next month"><span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span></button>
+            </div>
+          </div>
+          <div class="calendar-grid" id="teacher-calendar"></div>
+        </article>
+      </aside>
+    </div>
+  </div>
+  <script src="./ems-config.js?v=1776076084752"></script>
+  <script src="./ems-realtime.js?v=1776076084752"></script>
+  <script src="./teacher-shared.js?v=1776076084752"></script>
+  <script src="./teacher-dashboard-page.js?v=1776076084752"></script>
+</body>
+</html>

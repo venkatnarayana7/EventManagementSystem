@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Teacher Portal - Browse Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css" />
+</head>
+<body data-page="browse-events" data-title="Browse Events" data-breadcrumb="Browse Events">
+  <div id="teacher-page-content" hidden>
+    <div class="teacher-surface">
+      <div class="teacher-top-controls" style="justify-content:space-between;margin-bottom:18px;">
+        <div class="teacher-tab-row" id="browse-events-tabs"></div>
+        <div class="teacher-filter-row">
+          <select class="teacher-filter-pill" id="browse-category-filter"><option value="all">All Category</option></select>
+          <select class="teacher-filter-pill" id="browse-period-filter"><option value="all">This Month</option><option value="all-time">All Time</option></select>
+        </div>
+      </div>
+      <div class="teacher-grid-cards" id="browse-events-grid"></div>
+    </div>
+  </div>
+  <script src="./ems-config.js"></script>
+  <script src="./ems-realtime.js"></script>
+  <script src="./teacher-shared.js"></script>
+  <script src="./teacher-browse-events-page.js"></script>
+</body>
+</html>

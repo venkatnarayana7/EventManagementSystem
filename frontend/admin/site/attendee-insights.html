@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Admin Portal - Attendee Insights</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg-sidebar:#1a1a2e;--page-bg:#F5F0E8;--card-bg:#FFF;--bg-card-alt:#faf7f2;--card-border:#EBE5D7;--text-primary:#3A3631;--text-muted:#9B9589;--text-sidebar:#fff;--text-sidebar-muted:#9b9bb4;--sidebar-active-bg:rgba(255,255,255,.12);--sidebar-hover-bg:rgba(255,255,255,.07);--shadow-sidebar:4px 0 24px rgba(26,26,46,.15);--chart-dark:#1A1A1A;--donut-inactive:#D0C9BB;--radius-card:16px;--sidebar-width:220px;--header-height:72px}
+    *{box-sizing:border-box;margin:0;padding:0}html,body{min-height:100%}body{font-family:"Sora","DM Sans",sans-serif;font-size:14px;background:var(--page-bg);color:var(--text-primary)}button,input{font:inherit}button{border:0;background:none;cursor:pointer}a{text-decoration:none;color:inherit}.material-symbols-outlined{font-variation-settings:"FILL" 0,"wght" 500,"GRAD" 0,"opsz" 24;line-height:1}
+    .shell{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-width);background:var(--bg-sidebar);color:var(--text-sidebar);padding:22px 16px 16px;display:flex;flex-direction:column;gap:18px;overflow-y:auto;z-index:30;box-shadow:var(--shadow-sidebar)}.brand{padding:2px 4px 0}.brand-row{display:flex;align-items:center;gap:12px}.mark{width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.mark-inner{width:16px;height:16px;border-radius:5px;background:#fff;color:var(--bg-sidebar);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}.brand-title{font-size:16px;font-weight:700}.brand-sub{margin-top:6px;color:var(--text-sidebar-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}.sidebar-grow{flex:1;display:flex;flex-direction:column;gap:16px}.section-label{margin:6px 4px 4px;color:var(--text-sidebar-muted);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}.nav-list{display:grid;gap:2px}.nav-item{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 12px;border-radius:10px;color:var(--text-sidebar-muted);transition:background-color .2s ease,color .2s ease}.nav-item:hover{background:var(--sidebar-hover-bg);color:#fff}.nav-item.active{background:var(--sidebar-active-bg);color:#fff}.nav-item .material-symbols-outlined{font-size:18px}.nav-item span:last-child{font-size:14px;font-weight:500}.promo{margin-top:auto;background:rgba(255,255,255,.08);border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,.08)}.promo-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}.promo-badge{width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}.promo-title{font-size:12px;font-weight:700;line-height:1.4}.promo-chips{display:flex;gap:8px;margin-bottom:10px}.promo-chip{width:28px;height:28px;border-radius:999px;background:rgba(255,255,255,.11);display:flex;align-items:center;justify-content:center}.promo-copy{color:var(--text-sidebar-muted);font-size:11px;margin-bottom:12px}.promo-btn{width:100%;min-height:38px;border-radius:10px;background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:600}
+    .main{margin-left:var(--sidebar-width);min-height:100vh}.topbar{position:sticky;top:0;z-index:20;height:var(--header-height);display:flex;align-items:center;padding:16px 20px;background:rgba(245,240,232,.94);backdrop-filter:blur(12px)}.topbar-surface{width:100%;border-radius:18px;border:1px solid var(--card-border);background:rgba(255,255,255,.56);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:18px}.topbar-left{display:flex;align-items:center;gap:18px;flex:1;min-width:0}.menu-btn{display:none;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid var(--card-border);align-items:center;justify-content:center;color:var(--text-primary)}.page-meta{min-width:180px}.breadcrumb{font-size:11px;color:var(--text-muted)}.page-title{margin-top:2px;font-size:18px;font-weight:700}.search{height:40px;max-width:360px;width:100%;background:#fff;border:1px solid var(--card-border);border-radius:999px;display:flex;align-items:center;gap:8px;padding:0 14px}.search input{flex:1;border:0;outline:0;background:transparent;color:var(--text-primary);font-size:13px}.search input::placeholder{color:var(--text-muted)}.topbar-right{display:flex;align-items:center;gap:12px}.icon-btn{position:relative;width:40px;height:40px;border-radius:999px;background:#fff;border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;color:var(--text-primary)}.dot{position:absolute;top:9px;right:9px;width:8px;height:8px;border-radius:999px;background:#ef4444}.dot.hidden{display:none}.action-shell,.profile-shell{position:relative}.notification-menu,.profile-menu{position:absolute;top:calc(100% + 10px);right:0;width:320px;padding:12px;border-radius:16px;background:rgba(255,255,255,.98);border:1px solid var(--card-border);display:none;z-index:45}.notification-menu.open,.profile-menu.open{display:block}.notification-head{padding:4px 8px 12px;border-bottom:1px solid var(--card-border);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}.notification-title{font-size:13px;font-weight:700}.notification-count,.profile-menu-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}.notification-list{display:grid;gap:8px}.notification-item{padding:12px;border-radius:14px;background:#faf7f2;border:1px solid var(--card-border)}.notification-item-title{font-size:13px;font-weight:700}.notification-item-copy{margin-top:6px;font-size:12px;line-height:1.45;color:#5f584f}.notification-item-time{margin-top:8px;font-size:11px;color:var(--text-muted)}.notification-empty{padding:24px 14px;border-radius:14px;background:#faf7f2;border:1px dashed var(--card-border);text-align:center;color:#5f584f;font-size:13px;font-weight:600}
+    .profile{min-height:44px;padding:5px 12px 5px 6px;border-radius:999px;background:#fff;border:1px solid var(--card-border);display:flex;align-items:center;gap:8px;min-width:250px;text-align:left}.profile-caret{font-size:14px;color:var(--text-muted);transition:transform .2s ease}.profile[aria-expanded="true"] .profile-caret{transform:rotate(180deg)}.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1a1a1a,#48413a);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}.profile-text{display:flex;flex-direction:column;min-width:0;flex:1}.profile-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}.profile-email{font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}.profile-menu-head{padding:6px 8px 12px;border-bottom:1px solid var(--card-border);margin-bottom:10px}.profile-menu-id{margin-top:8px;padding:10px 12px;border-radius:12px;background:#faf7f2;border:1px solid var(--card-border);font-size:13px;font-weight:700}.profile-menu-list{display:grid;gap:6px}.profile-menu-action{width:100%;min-height:42px;padding:0 12px;border-radius:12px;display:flex;align-items:center;gap:10px;color:var(--text-primary)}.profile-menu-action:hover{background:#faf7f2}
+    .content{padding:12px 20px 24px}.feedback{margin-bottom:14px}.banner{padding:14px 16px;border-radius:12px;border:1px solid #f1d4d4;background:#fff4f4;color:#a23e3e;font-size:13px;font-weight:500}.surface{background:rgba(255,255,255,.42);border:1px solid #ddd4c8;border-radius:22px;padding:20px}.event-switcher{display:grid;gap:12px;margin-bottom:16px}.event-switcher-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}.event-switcher-title{font-size:15px;font-weight:700}.event-switcher-sub{margin-top:4px;font-size:12px;color:var(--text-muted)}.event-switcher-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.event-switcher-item{padding:14px 16px;border-radius:16px;border:1px solid var(--card-border);background:#fff;display:grid;gap:8px;text-align:left;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}.event-switcher-item:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(26,26,46,.08)}.event-switcher-item.active{border-color:#1A1A1A;box-shadow:0 14px 28px rgba(26,26,46,.1)}.event-switcher-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.event-switcher-name{font-size:14px;font-weight:700;color:var(--text-primary)}.event-switcher-type{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;background:#faf7f2;border:1px solid var(--card-border);font-size:11px;font-weight:700;color:#5f584f}.event-switcher-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:#5f584f}.event-switcher-stat{font-size:12px;font-weight:700;color:#1A1A1A}.insights-grid{display:grid;grid-template-columns:270px minmax(0,1fr);gap:16px;align-items:start}.left-stack,.right-stack{display:grid;gap:16px}.card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-card);padding:20px}.stat-value{font-size:44px;line-height:1;font-weight:700}.stat-label{margin-top:8px;font-size:16px;font-weight:500}.stat-sub{margin-top:4px;font-size:12px;color:var(--text-muted)}.card-title,.section-heading{font-size:14px;font-weight:500;margin-bottom:12px}.card-title{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.mini-legend{display:grid;gap:8px}.mini-legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-primary)}.legend-swatch{width:12px;height:12px;flex-shrink:0}.donut-wrap{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:8px;align-items:center}.donut-visual{display:flex;align-items:center;justify-content:center;min-height:200px}.donut-svg{width:220px;height:220px}.age-card .donut-wrap{grid-template-columns:140px minmax(0,1fr)}.chart-box{min-height:248px}.chart-box.tall{min-height:288px}.chart-svg{display:block;width:100%;height:100%}.empty-card{display:grid;place-items:center;min-height:440px;text-align:center;color:var(--text-muted);font-size:14px}
+    .profile-modal{position:fixed;inset:0;background:rgba(26,26,26,.28);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;z-index:50}.profile-modal.open{display:flex}.profile-modal-card{width:min(440px,100%);background:#fff;border:1px solid var(--card-border);border-radius:20px;padding:24px}.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}.modal-title{font-size:18px;font-weight:700}.modal-sub{margin-top:6px;color:var(--text-muted);font-size:12px;line-height:1.45}.modal-close{width:36px;height:36px;border-radius:12px;background:#faf7f2;border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;color:var(--text-primary)}.profile-summary{display:flex;align-items:center;gap:16px;margin-bottom:18px}.profile-summary .avatar{width:54px;height:54px;font-size:18px}.profile-summary-copy{display:grid;gap:4px}.profile-role{display:inline-flex;align-items:center;width:max-content;padding:5px 10px;border-radius:999px;background:#faf7f2;border:1px solid var(--card-border);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5f584f}.profile-grid{display:grid;gap:12px}.profile-field{padding:14px 16px;border-radius:14px;background:#faf7f2;border:1px solid var(--card-border)}.profile-field-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}.profile-field-value{margin-top:8px;font-size:14px;font-weight:600;word-break:break-word}.modal-actions{display:flex;justify-content:flex-end;margin-top:18px}.btn-primary{min-height:42px;padding:0 18px;border-radius:10px;background:var(--chart-dark);color:#fff;font-size:13px;font-weight:600}
+    @media (max-width:1160px){.insights-grid{grid-template-columns:1fr}.age-card .donut-wrap,.donut-wrap{grid-template-columns:1fr}.donut-visual{min-height:180px}}@media (max-width:1024px){.sidebar{transform:translateX(-100%);transition:transform .25s ease}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.menu-btn{display:inline-flex}}@media (max-width:760px){.topbar{height:auto;padding:14px 14px 0}.topbar-surface{display:grid;gap:12px}.topbar-left,.topbar-right{width:100%}.topbar-right{justify-content:flex-end;flex-wrap:wrap}.profile{min-width:0;width:100%}.content{padding:12px 14px 24px}.surface{padding:14px}.stat-value{font-size:36px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-row">
+          <span class="mark"><span class="mark-inner">G</span></span>
+          <div><div class="brand-title">EMS</div><div class="brand-sub">Event Manager</div></div>
+        </div>
+      </div>
+      <div class="sidebar-grow">
+        <div>
+          <div class="section-label">Menu</div>
+          <nav class="nav-list">
+            <a class="nav-item" href="/dashboard.html"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+            <a class="nav-item" href="/events.html"><span class="material-symbols-outlined">calendar_month</span><span>Events</span></a>
+            <a class="nav-item active" href="/attendee-insights.html"><span class="material-symbols-outlined">bar_chart</span><span>Attendee Insights</span></a>
+          </nav>
+        </div>
+        <div>
+          <div class="section-label">General</div>
+          <nav class="nav-list">
+            <a class="nav-item" href="/settings.html"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
+            <a class="nav-item" href="/help.html"><span class="material-symbols-outlined">help</span><span>Help</span></a>
+            <button class="nav-item" id="logout-button" type="button"><span class="material-symbols-outlined">logout</span><span>Logout</span></button>
+          </nav>
+        </div>
+      </div>
+      <div class="promo">
+        <div class="promo-top"><span class="promo-badge"><span class="mark-inner">G</span></span><div class="promo-title">Download Our Mobile App</div></div>
+        <div class="promo-chips"><span class="promo-chip"><span class="material-symbols-outlined" style="font-size:16px;">smartphone</span></span><span class="promo-chip"><span class="material-symbols-outlined" style="font-size:16px;">download</span></span></div>
+        <div class="promo-copy">Get another easy way</div>
+        <button class="promo-btn" type="button">Download Now</button>
+      </div>
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-surface">
+          <div class="topbar-left">
+            <button class="menu-btn" id="menu-button" type="button" aria-label="Open menu"><span class="material-symbols-outlined">menu</span></button>
+            <div class="page-meta">
+              <div class="breadcrumb" id="breadcrumb-label">Dashboard / Event / Insights</div>
+              <div class="page-title" id="insights-page-title">Attendee Insights</div>
+            </div>
+            <label class="search" aria-label="Search"><span class="material-symbols-outlined" style="font-size:18px;color:var(--text-muted);">search</span><input id="insights-search-input" type="search" placeholder="Search" /></label>
+          </div>
+          <div class="topbar-right">
+            <button class="icon-btn" type="button" aria-label="Messages"><span class="material-symbols-outlined" style="font-size:18px;">mail</span></button>
+            <div class="action-shell">
+              <button class="icon-btn" id="notifications-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Notifications"><span class="dot hidden" id="notifications-dot"></span><span class="material-symbols-outlined" style="font-size:18px;">notifications</span></button>
+              <div class="notification-menu" id="notifications-menu" role="menu" aria-hidden="true">
+                <div class="notification-head"><div class="notification-title">Notifications</div><div class="notification-count" id="notifications-count">0 New</div></div>
+                <div class="notification-list" id="notifications-list"><div class="notification-empty">No new notifications</div></div>
+              </div>
+            </div>
+            <div class="profile-shell">
+              <button class="profile" id="profile-trigger" type="button" aria-haspopup="menu" aria-expanded="false">
+                <span class="avatar" id="header-avatar">EM</span>
+                <span class="profile-text"><span class="profile-name" id="header-user-name">EMS Admin</span><span class="profile-email" id="header-user-email">admin@ems.app</span></span>
+                <span class="material-symbols-outlined profile-caret">expand_more</span>
+              </button>
+              <div class="profile-menu" id="profile-menu" role="menu" aria-hidden="true">
+                <div class="profile-menu-head"><div class="profile-menu-label">Profile ID</div><div class="profile-menu-id" id="profile-menu-id">EMS-ADM-000000</div></div>
+                <div class="profile-menu-list"><button class="profile-menu-action" id="profile-view-button" type="button" role="menuitem"><span class="material-symbols-outlined" style="font-size:18px;">badge</span><span>View Profile</span></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="content">
+        <div class="feedback" id="insights-feedback"></div>
+        <div class="surface">
+          <section class="event-switcher">
+            <div class="event-switcher-head">
+              <div>
+                <div class="event-switcher-title">Select Event</div>
+                <div class="event-switcher-sub">Click an event to open attendee insights only for that event.</div>
+              </div>
+            </div>
+            <div class="event-switcher-list" id="insights-event-list"></div>
+          </section>
+          <div class="insights-grid" id="insights-grid">
+            <div class="left-stack">
+              <article class="card"><div class="stat-value" id="attendee-total">0</div><div class="stat-label">Total Participants</div><div class="stat-sub">Live from registrations and attendance</div></article>
+              <article class="card">
+                <div class="card-title"><span>Attendance Status</span><div class="mini-legend" id="gender-legend"></div></div>
+                <div class="donut-wrap"><div class="donut-visual"><svg class="donut-svg" id="gender-chart" viewBox="0 0 220 220" aria-label="Gender chart"></svg></div><div class="mini-legend" id="gender-callouts"></div></div>
+              </article>
+              <article class="card age-card">
+                <div class="section-heading">Department Mix</div>
+                <div class="donut-wrap"><div class="donut-visual"><svg class="donut-svg" id="age-chart" viewBox="0 0 220 220" aria-label="Age category chart"></svg></div><div class="mini-legend" id="age-legend"></div></div>
+              </article>
+            </div>
+            <div class="right-stack">
+              <article class="card"><div class="section-heading">Top Venue Locations</div><div class="chart-box tall"><svg class="chart-svg" id="location-chart" viewBox="0 0 760 300" aria-label="Top locations chart"></svg></div></article>
+              <article class="card"><div class="section-heading">Top Event Categories</div><div class="chart-box"><svg class="chart-svg" id="category-chart" viewBox="0 0 760 250" aria-label="Top categories chart"></svg></div></article>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="profile-modal" id="profile-modal" aria-hidden="true">
+    <div class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+      <div class="modal-head"><div><div class="modal-title" id="profile-modal-title">Profile</div><div class="modal-sub">Your EMS account details and unique profile ID.</div></div><button class="modal-close" id="profile-modal-close" type="button" aria-label="Close"><span class="material-symbols-outlined">close</span></button></div>
+      <div class="profile-summary"><span class="avatar" id="profile-modal-avatar">EM</span><div class="profile-summary-copy"><div class="modal-title" id="profile-modal-name" style="font-size:18px;">EMS Admin</div><div id="profile-modal-email" style="color:var(--text-muted);font-size:13px;">admin@ems.app</div><div class="profile-role" id="profile-modal-role">Admin</div></div></div>
+      <div class="profile-grid">
+        <div class="profile-field"><div class="profile-field-label">Profile ID</div><div class="profile-field-value" id="profile-modal-id">EMS-ADM-000000</div></div>
+        <div class="profile-field"><div class="profile-field-label">Department</div><div class="profile-field-value" id="profile-modal-department">Not added yet</div></div>
+        <div class="profile-field"><div class="profile-field-label">Joined</div><div class="profile-field-value" id="profile-modal-created">Recently joined</div></div>
+      </div>
+      <div class="modal-actions"><button class="btn-primary" id="profile-modal-done" type="button">Done</button></div>
+    </div>
+  </div>
+  <script src="./ems-config.js?v=1776076084752"></script>
+  <script src="./ems-realtime.js?v=1776076084752"></script>
+  <script src="./attendee-insights-page.js?v=1776076084752"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Teacher Portal - My Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css" />
+  <style>
+    .teacher-create-fab{position:fixed;right:28px;bottom:28px;width:60px;height:60px;border-radius:999px;background:var(--accent-primary);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 28px rgba(26,26,46,.22);z-index:35;transition:transform .2s ease,background-color .2s ease}
+    .teacher-create-fab:hover{background:#2d2d4a;transform:translateY(-2px)}
+    .teacher-create-fab .material-symbols-outlined{font-size:28px;font-variation-settings:"FILL" 1,"wght" 500,"GRAD" 0,"opsz" 24}
+    .teacher-create-modal{position:fixed;inset:0;background:rgba(26,26,46,.22);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;z-index:40}
+    .teacher-create-modal.open{display:flex}
+    .teacher-create-modal-card{width:min(520px,100%);max-height:min(88vh,760px);display:flex;flex-direction:column;padding:20px 20px 18px;border-radius:20px;background:var(--bg-card);border:1px solid var(--border-card);box-shadow:0 24px 60px rgba(26,26,46,.16)}
+    .teacher-create-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .teacher-create-modal-title{font-size:18px;font-weight:700}
+    .teacher-create-modal-sub{margin-top:6px;color:var(--text-secondary);font-size:12px;line-height:1.5}
+    .teacher-create-modal-close{width:36px;height:36px;border-radius:12px;background:var(--bg-card-alt);border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;color:var(--text-secondary)}
+    .teacher-create-form{flex:1;min-height:0;overflow-y:auto;padding-right:6px;margin-right:-6px;display:grid;gap:14px}
+    .teacher-create-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .teacher-create-field{display:grid;gap:8px}
+    .teacher-create-field.full{grid-column:1/-1}
+    .teacher-create-field label{color:var(--text-secondary);font-size:12px;font-weight:600}
+    .teacher-create-field input,.teacher-create-field textarea,.teacher-create-field select{width:100%;border:1px solid var(--border-light);border-radius:var(--radius-input);background:var(--bg-card-alt);color:var(--text-primary);padding:12px 14px;outline:0}
+    .teacher-create-field input:focus,.teacher-create-field textarea:focus,.teacher-create-field select:focus{border-color:var(--accent-blue)}
+    .teacher-create-field textarea{min-height:96px;resize:vertical}
+    .teacher-create-subgrid{display:grid;gap:10px}
+    .teacher-create-switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text-secondary);font-size:12px}
+    .teacher-create-switch{width:44px;height:24px;border-radius:999px;background:#c7cbd3;position:relative;transition:background-color .2s ease;flex-shrink:0}
+    .teacher-create-switch:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s ease}
+    .teacher-create-switch.on{background:var(--accent-green)}
+    .teacher-create-switch.on:after{transform:translateX(20px)}
+    .teacher-create-prefix{position:relative}
+    .teacher-create-prefix span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:13px}
+    .teacher-create-prefix input{padding-left:28px}
+    .teacher-create-prefix.disabled{opacity:.55}
+    .teacher-create-prefix.disabled input{cursor:not-allowed}
+    .teacher-create-chip-input{display:flex;align-items:center;gap:8px;min-height:48px;padding:8px 10px;border:1px solid var(--border-light);border-radius:var(--radius-input);background:var(--bg-card-alt);flex-wrap:wrap}
+    .teacher-create-chip-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .teacher-create-chip-input input{flex:1;min-width:120px;padding:0;border:0;background:transparent}
+    .teacher-create-chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 10px;border-radius:999px;background:#eef2fb;color:#315b9b;font-size:12px;font-weight:600}
+    .teacher-create-chip-remove{width:18px;height:18px;border-radius:999px;background:rgba(49,91,155,.12);color:#315b9b;display:flex;align-items:center;justify-content:center;font-size:12px}
+    .teacher-create-upload{display:grid;gap:12px;padding:14px;border:1px dashed var(--border-light);border-radius:14px;background:var(--bg-card-alt)}
+    .teacher-create-upload input{padding:0;border:0;background:transparent}
+    .teacher-create-upload-copy{display:grid;gap:6px;justify-items:start}
+    .teacher-create-upload-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+    .teacher-create-upload-sub{font-size:12px;line-height:1.45;color:var(--text-secondary)}
+    .teacher-create-upload-meta{display:grid;gap:8px}
+    .teacher-create-upload-chip{width:max-content;max-width:100%;padding:6px 10px;border-radius:999px;background:#f3efe8;color:#6b7280;font-size:11px;font-weight:700}
+    .teacher-create-upload-note{font-size:11px;line-height:1.45;color:var(--text-muted)}
+    .teacher-create-note{color:var(--text-secondary);font-size:12px;line-height:1.45}
+    .teacher-create-actions{display:flex;justify-content:flex-end;gap:10px}
+    .teacher-create-form input[type="checkbox"]{width:16px;height:16px;accent-color:var(--accent-primary)}
+    .teacher-create-form::-webkit-scrollbar{width:8px}
+    .teacher-create-form::-webkit-scrollbar-thumb{background:#ddd3c6;border-radius:999px}
+    .teacher-create-form::-webkit-scrollbar-track{background:transparent}
+    @media (max-width: 720px){
+      .teacher-create-grid{grid-template-columns:1fr}
+      .teacher-create-fab{right:18px;bottom:18px}
+      .teacher-create-modal{padding:16px}
+    }
+  </style>
+</head>
+<body data-page="my-events" data-title="My Events" data-breadcrumb="My Events">
+  <div id="teacher-page-content" hidden>
+    <div class="teacher-surface">
+      <div class="teacher-top-controls" style="justify-content:space-between;margin-bottom:18px;">
+        <div><div class="teacher-card-title">My Events</div><div class="teacher-card-sub" id="my-events-count"></div></div>
+        <div class="teacher-filter-row">
+          <label class="teacher-search" style="max-width:240px;"><span class="material-symbols-outlined" style="font-size:18px;color:var(--text-muted);">search</span><input id="my-events-search" type="search" placeholder="Search events" /></label>
+          <select class="teacher-filter-pill" id="my-events-status-filter"><option value="all">All Status</option><option value="draft">Draft</option><option value="pending">Pending Approval</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="completed">Completed</option></select>
+          <select class="teacher-filter-pill" id="my-events-category-filter"><option value="all">All Category</option></select>
+          <button class="teacher-pill primary" id="my-events-create"><span class="material-symbols-outlined" style="font-size:18px;">add</span><span>Create Event</span></button>
+        </div>
+      </div>
+      <div class="teacher-tab-row" id="my-events-tabs" style="margin-bottom:20px;"></div>
+      <div class="teacher-grid-cards" id="my-events-grid"></div>
+    </div>
+    <button class="teacher-create-fab" id="teacher-create-event-button" type="button" aria-label="Create new event">
+      <span class="material-symbols-outlined">add</span>
+    </button>
+    <div class="teacher-create-modal" id="teacher-create-event-modal" aria-hidden="true">
+      <div class="teacher-create-modal-card" role="dialog" aria-modal="true" aria-labelledby="teacher-create-event-title">
+        <div class="teacher-create-modal-head">
+          <div>
+            <div class="teacher-create-modal-title" id="teacher-create-event-title">Create New Event</div>
+            <div class="teacher-create-modal-sub" id="teacher-create-event-subtitle">Submit a new event to the shared platform. Teacher events go to admin approval after creation.</div>
+          </div>
+          <button class="teacher-create-modal-close" id="teacher-create-event-close" type="button" aria-label="Close">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <form class="teacher-create-form" id="teacher-create-event-form">
+          <div class="teacher-create-grid">
+            <div class="teacher-create-field full">
+              <label for="teacher-event-title-input">Event Title</label>
+              <input id="teacher-event-title-input" name="title" type="text" placeholder="AI Innovation Summit" required />
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-type-input">Event Category</label>
+              <select id="teacher-event-type-input" name="eventType" required>
+                <option value="Food & Culinary">Food & Culinary</option>
+                <option value="Technology">Technology</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Music">Music</option>
+                <option value="Outdoor & Adventure">Outdoor & Adventure</option>
+                <option value="Health & Fitness">Health & Fitness</option>
+                <option value="Sports">Sports</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Seminar">Seminar</option>
+              </select>
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-venue-input">Venue</label>
+              <input id="teacher-event-venue-input" name="venue" type="text" placeholder="Main Auditorium" required />
+            </div>
+            <div class="teacher-create-field">
+              <label>Price</label>
+              <div class="teacher-create-subgrid">
+                <div class="teacher-create-switch-row">
+                  <span>Free Event</span>
+                  <button class="teacher-create-switch" id="teacher-event-free-toggle" type="button" aria-pressed="false"></button>
+                </div>
+                <div class="teacher-create-prefix" id="teacher-event-price-shell">
+                  <span>$</span>
+                  <input id="teacher-event-price-input" name="price" type="number" min="0" step="1" placeholder="20" />
+                </div>
+              </div>
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-date-input">Event Date</label>
+              <input id="teacher-event-date-input" name="eventDate" type="date" required />
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-capacity-input">Max Capacity</label>
+              <input id="teacher-event-capacity-input" name="maxCapacity" type="number" min="1" step="1" placeholder="120" required />
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-start-time-input">Start Time</label>
+              <input id="teacher-event-start-time-input" name="startTime" type="time" required />
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-end-time-input">End Time</label>
+              <input id="teacher-event-end-time-input" name="endTime" type="time" required />
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-department-input">Department</label>
+              <select id="teacher-event-department-input" name="departmentFilter">
+                <option value="">All Departments</option>
+                <option value="CSE">CSE</option>
+                <option value="ECE">ECE</option>
+                <option value="MBA">MBA</option>
+                <option value="Civil">Civil</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Design">Design</option>
+                <option value="Law">Law</option>
+              </select>
+            </div>
+            <div class="teacher-create-field full">
+              <label for="teacher-event-tags-chip-input">Tags</label>
+              <div class="teacher-create-chip-input">
+                <div class="teacher-create-chip-wrap" id="teacher-event-tags-wrap"></div>
+                <input id="teacher-event-tags-chip-input" type="text" placeholder="Press Enter to add tag" />
+                <input id="teacher-event-tags-input" name="tags" type="hidden" />
+              </div>
+            </div>
+            <div class="teacher-create-field full">
+              <label for="teacher-event-description-input">Description</label>
+              <textarea id="teacher-event-description-input" name="description" placeholder="Write a short description for the event..."></textarea>
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-deadline-input">Registration Deadline</label>
+              <input id="teacher-event-deadline-input" name="registrationDeadline" type="datetime-local" />
+            </div>
+            <div class="teacher-create-field">
+              <label for="teacher-event-poster-input">Poster URL</label>
+              <input id="teacher-event-poster-input" name="posterUrl" type="url" placeholder="https://example.com/poster.jpg" />
+            </div>
+            <div class="teacher-create-field full">
+              <label for="teacher-event-banner-file">Banner Image</label>
+              <div class="teacher-create-upload">
+                <input id="teacher-event-banner-file" name="bannerFile" type="file" accept="image/png,image/jpeg" />
+                <div class="teacher-create-upload-copy">
+                  <span class="material-symbols-outlined" style="font-size:28px;color:var(--text-muted);">image</span>
+                  <div class="teacher-create-upload-title">Upload event banner</div>
+                  <div class="teacher-create-upload-sub">Choose a PNG or JPG banner to show on shared event cards after creation.</div>
+                </div>
+              </div>
+              <div class="teacher-create-upload-meta">
+                <div class="teacher-create-upload-chip" id="teacher-event-banner-status">No banner selected</div>
+                <div class="teacher-create-upload-note">You can either upload a banner here or keep using the poster URL option above.</div>
+              </div>
+            </div>
+            <div class="teacher-create-field full">
+              <label style="display:flex;align-items:center;gap:10px;color:var(--text-secondary);font-size:12px;font-weight:600;">
+                <input id="teacher-event-public-input" name="isPublic" type="checkbox" checked />
+                <span>Show this event publicly</span>
+              </label>
+            </div>
+          </div>
+          <div class="teacher-create-note" id="teacher-create-note">Teacher-created events are submitted for admin approval before they become active in every portal.</div>
+          <div class="teacher-create-actions">
+            <button class="teacher-btn-ghost" id="teacher-create-event-cancel" type="button">Cancel</button>
+            <button class="teacher-btn" id="teacher-create-event-submit" type="submit">Done</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="./ems-config.js"></script>
+  <script src="./ems-realtime.js"></script>
+  <script src="./teacher-shared.js"></script>
+  <script src="./teacher-my-events-page.js"></script>
+</body>
+</html>

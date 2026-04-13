@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Teacher Portal - Registered Students</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css" />
+</head>
+<body data-page="students" data-title="Registered Students" data-breadcrumb="My Events / Registered Students">
+  <div id="teacher-page-content" hidden>
+    <div class="teacher-grid">
+      <article class="teacher-card teacher-summary-bar" id="students-summary"></article>
+      <div class="teacher-surface">
+        <div class="teacher-top-controls" style="justify-content:space-between;margin-bottom:18px;">
+          <div><div class="teacher-card-title" id="students-count-title"></div><div class="teacher-card-sub">Private student data is visible only in the teacher portal.</div></div>
+          <div class="teacher-filter-row">
+            <label class="teacher-search" style="max-width:240px;"><span class="material-symbols-outlined" style="font-size:18px;color:var(--text-muted);">search</span><input id="students-search" type="search" placeholder="Search students" /></label>
+            <select class="teacher-filter-pill" id="students-status-filter"><option value="all">All</option><option value="registered">Registered</option><option value="waitlisted">Waitlisted</option><option value="cancelled">Cancelled</option></select>
+            <button class="teacher-btn-outline" type="button"><span class="material-symbols-outlined" style="font-size:18px;">download</span><span>Export Excel</span></button>
+            <button class="teacher-btn" type="button" id="students-email-blast"><span class="material-symbols-outlined" style="font-size:18px;">mail</span><span>Send Email Blast</span></button>
+          </div>
+        </div>
+        <article class="teacher-card teacher-table-card"><table class="teacher-table"><thead><tr><th>#</th><th>Student</th><th>Email</th><th>Roll No</th><th>Dept</th><th>Registered At</th><th>Status</th><th>Attendance</th></tr></thead><tbody id="students-table-body"></tbody></table></article>
+      </div>
+    </div>
+  </div>
+  <script src="./ems-config.js"></script>
+  <script src="./ems-realtime.js"></script>
+  <script src="./teacher-shared.js"></script>
+  <script src="./teacher-students-page.js"></script>
+</body>
+</html>

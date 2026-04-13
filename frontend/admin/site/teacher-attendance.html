@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Teacher Portal - Attendance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./teacher-portal.css?v=1776076084752" />
+</head>
+<body data-page="attendance" data-title="Attendance" data-breadcrumb="My Events / Attendance">
+  <div id="teacher-page-content" hidden>
+    <div class="teacher-grid">
+      <article class="teacher-card teacher-summary-bar" id="attendance-summary-bar"></article>
+      <div class="teacher-two-column">
+        <section class="teacher-surface">
+          <div class="teacher-tab-row" style="margin-bottom:18px;">
+            <button class="teacher-tab-pill active" data-mode="manual">Manual Marking</button>
+            <button class="teacher-tab-pill" data-mode="scanner">QR Scanner Mode</button>
+          </div>
+          <div id="attendance-mode-body"></div>
+        </section>
+        <aside class="teacher-card teacher-sticky" id="attendance-side-card" style="padding:20px;"></aside>
+      </div>
+    </div>
+  </div>
+  <script src="./ems-config.js?v=1776076084752"></script>
+  <script src="./ems-realtime.js?v=1776076084752"></script>
+  <script src="./teacher-shared.js?v=1776076084752"></script>
+  <script src="./teacher-attendance-page.js?v=1776076084752"></script>
+</body>
+</html>
