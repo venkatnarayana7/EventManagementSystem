@@ -659,8 +659,9 @@
       '<div><div class="registration-card"><div class="seats-row"><span class="seats-value">' + seatsAvailable + '</span><span class="seats-total">/' + event.maxCapacity + "</span></div><div style=\"font-size:12px;color:var(--text-muted);\">Seats Available</div><div class=\"event-progress\" style=\"margin-top:12px;\"><div class=\"event-progress-track\" style=\"height:8px;\"><div class=\"event-progress-fill\" data-progress=\"" + progress + "\"></div></div></div>",
       '<div class="info-grid"><div class="info-item"><div class="info-meta"><span class="material-symbols-outlined" style="font-size:14px;">calendar_month</span><span>Date</span></div><div class="info-value">' + escapeHtml(formatEventDate(event.eventDate)) + '</div></div><div class="info-item"><div class="info-meta"><span class="material-symbols-outlined" style="font-size:14px;">schedule</span><span>Time</span></div><div class="info-value">' + escapeHtml(formatTime(event.startTime)) + '</div></div><div class="info-item full"><div class="info-meta"><span class="material-symbols-outlined" style="font-size:14px;">location_on</span><span>Venue</span></div><div class="info-value">' + escapeHtml(event.venue) + '</div></div><div class="info-item"><div class="info-meta"><span class="material-symbols-outlined" style="font-size:14px;">apartment</span><span>Department</span></div><div class="info-value">' + escapeHtml(event.departmentFilter || "All Departments") + '</div></div><div class="info-item"><div class="info-meta"><span class="material-symbols-outlined" style="font-size:14px;">event_upcoming</span><span>Registration Deadline</span></div><div class="info-value">' + escapeHtml(event.registrationDeadline ? formatEventDate(event.registrationDeadline) : "Not set") + "</div></div></div>",
       '<div class="detail-divider"></div><div class="action-stack">' + (event.status === "pending_approval"
+      '<div class="detail-divider"></div><div class="action-stack">' + (event.status === "pending_approval"
         ? '<button class="action-btn primary" type="button" data-action="approve" data-id="' + escapeHtml(event.id) + '"><span class="material-symbols-outlined" style="font-size:18px;">check_circle</span><span>Approve Event</span></button><button class="action-btn danger" type="button" data-action="reject" data-id="' + escapeHtml(event.id) + '"><span class="material-symbols-outlined" style="font-size:18px;">cancel</span><span>Reject Event</span></button>'
-        : '<div class="approval-banner">&#10003; Event is Approved</div>') + (event.status !== "draft" ? '<button class="action-btn outlined" type="button" data-action="registrations" data-id="' + escapeHtml(event.id) + '"><span class="material-symbols-outlined" style="font-size:18px;">group</span><span>' + (state.loadingRegistrations && state.selectedEventId === event.id ? "Loading..." : "View Registrations") + '</span></button>' : "") + '</div>' + (registrationsHtml ? '<div class="registrations-panel">' + registrationsHtml + "</div>" : "") + '<div class="detail-meta-note">Created by ' + escapeHtml(event.organizerName || "Event Admin") + " • Submitted " + escapeHtml(submittedDate) + "</div></div></div>"
+        : '<div class="approval-banner">&#10003; Event is Approved</div>') + (event.status !== "draft" ? '<button class="action-btn outlined" type="button" data-action="registrations" data-id="' + escapeHtml(event.id) + '"><span class="material-symbols-outlined" style="font-size:18px;">group</span><span>' + (state.loadingRegistrations && state.selectedEventId === event.id ? "Loading..." : "View Registrations") + '</span></button>' : "") + '<button class="action-btn outlined" type="button" style="margin-left:auto;color:var(--text-primary);" data-action="delete" data-id="' + escapeHtml(event.id) + '"><span class="material-symbols-outlined" style="font-size:18px;">delete</span><span>Delete</span></button></div>' + (registrationsHtml ? '<div class="registrations-panel">' + registrationsHtml + "</div>" : "") + '<div class="detail-meta-note">Created by ' + escapeHtml(event.organizerName || "Event Admin") + " • Submitted " + escapeHtml(submittedDate) + "</div></div></div>"
     ].join("");
     refs.detailBackdrop.classList.add("open");
     refs.detailBackdrop.setAttribute("aria-hidden", "false");
@@ -854,6 +855,25 @@
     showToast("error", "Event rejected", "cancel");
   }
 
+  async function deleteEvent(eventId) {
+    if (!window.confirm("Are you sure you want to permanently delete this event? This action cannot be undone.")) {
+      return;
+    }
+    const targetEvent = getSelectedEvent();
+    try {
+      await apiRequest("/events/" + eventId, { method: "DELETE" });
+      state.events = state.events.filter(function (e) { return e.id !== eventId; });
+      if (state.selectedEventId === eventId) {
+        closeDetailModal();
+      }
+      renderContent();
+      pushNotification("Event Deleted", (targetEvent ? targetEvent.title : "Event") + " was deleted.");
+      showToast("success", "Event deleted successfully", "delete");
+    } catch (error) {
+      showBanner(error.message || "Failed to delete event.");
+    }
+  }
+
   function openProfileModal() {
     refs.profileBackdrop.classList.add("open");
     refs.profileBackdrop.setAttribute("aria-hidden", "false");
@@ -969,6 +989,7 @@
       if (action === "approve") { approveEvent(id).catch(function (error) { showBanner(error.message || "Approval failed."); }); }
       if (action === "reject") { rejectEvent(id).catch(function (error) { showBanner(error.message || "Rejection failed."); }); }
       if (action === "registrations") { loadRegistrations(id); }
+      if (action === "delete") { deleteEvent(id); }
       return;
     }
     if (openDetail) {
@@ -1072,6 +1093,7 @@
     if (action === "approve") { approveEvent(id).catch(function (error) { showBanner(error.message || "Approval failed."); }); }
     if (action === "reject") { rejectEvent(id).catch(function (error) { showBanner(error.message || "Rejection failed."); }); }
     if (action === "registrations") { loadRegistrations(id); }
+    if (action === "delete") { deleteEvent(id); }
   });
 
   refs.notificationsTrigger.addEventListener("click", function (event) {

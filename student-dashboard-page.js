@@ -116,7 +116,7 @@
     }
     root.innerHTML = items.map(function (item) {
       const seats = Math.max(0, Number(item.maxCapacity || 0) - Number(item.currentCount || 0));
-      return '<a class="teacher-event-row" href="student-registrations.html"><img class="teacher-event-thumb" alt="' + student.escapeHtml(item.title) + '" src="' + student.escapeHtml(student.resolveMediaUrl(item.posterUrl || "")) + '" /><div class="teacher-event-copy"><div class="teacher-event-title">' + student.escapeHtml(item.title) + '</div><div class="teacher-event-meta"><span class="material-symbols-outlined" style="font-size:14px;">calendar_month</span><span>' + student.escapeHtml(student.formatShortDate(item.eventDate)) + '</span><span>&bull;</span><span>' + student.escapeHtml(student.formatTime(item.startTime)) + '</span></div><div class="teacher-event-location"><span class="material-symbols-outlined" style="font-size:14px;color:var(--accent-red);">location_on</span><span>' + student.escapeHtml(item.venue || "") + '</span></div></div><div class="teacher-side-meta"><span class="teacher-meta-chip">' + student.escapeHtml(seats + "/" + Number(item.maxCapacity || 0) + " seats") + '</span><span class="teacher-link">View</span></div></a>';
+      return '<a class="teacher-event-row" href="student-registrations.html"><img class="teacher-event-thumb" alt="' + student.escapeHtml(item.title) + '" src="' + student.escapeHtml(student.resolveMediaUrl(item.posterUrl || "")) + '" /><div class="teacher-event-copy"><div class="teacher-event-title">' + student.escapeHtml(item.title) + '</div><div class="teacher-event-meta"><span class="material-symbols-outlined" style="font-size:14px;">calendar_month</span><span>' + student.escapeHtml(student.formatShortDate(item.eventDate)) + '</span><span>&bull;</span><span>' + student.escapeHtml(student.formatTime(item.startTime)) + '</span></div><div class="teacher-event-location"><span class="material-symbols-outlined" style="font-size:14px;color:var(--accent-red);">location_on</span><span>' + student.escapeHtml(item.venue || "") + '</span></div></div><div class="teacher-side-meta"><span class="teacher-meta-chip">' + student.escapeHtml(Number(item.currentCount || 0) + " joined • " + seats + " left") + '</span><span class="teacher-link">View</span></div></a>';
     }).join("");
   }
 
@@ -129,6 +129,9 @@
     const items = state.events
       .filter(function (event) {
         return !joinedIds.has(event.id) && String(event.date || "") >= student.getLocalDateKey(new Date()) && (!state.user.department || !event.department || event.department === "Open" || event.department === state.user.department);
+      })
+      .sort(function (a, b) {
+        return (a.date + a.startTime).localeCompare(b.date + b.startTime);
       })
       .slice(0, 2);
     if (!items.length) {
@@ -225,13 +228,15 @@
     renderCalendar();
   }
 
-  async function loadPage() {
+  async function loadPage(silent) {
     student.clearMessage();
     if (!document.querySelector(".teacher-shell")) {
       student.createShell();
     }
 
-    renderLoaders();
+    if (!silent) {
+      renderLoaders();
+    }
 
     try {
       state.user = await student.loadStudentUser();
@@ -283,7 +288,7 @@
     window.EMS_REALTIME.onMessage(function (message) {
       const type = String(message && message.type || "");
       if (["event_approved", "event_deleted", "seat_updated", "new_registration", "attendance_submitted", "registration_cancelled"].includes(type)) {
-        loadPage();
+        loadPage(true);
       }
     });
   }
@@ -312,5 +317,5 @@
     renderUpcomingEvents();
   });
   loadPage();
-  window.setInterval(loadPage, 15000);
+  window.setInterval(function () { loadPage(true); }, 15000);
 })();

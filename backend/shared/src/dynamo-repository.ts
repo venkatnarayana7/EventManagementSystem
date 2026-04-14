@@ -525,6 +525,15 @@ export async function saveEvent(event: EventRecord) {
   return item;
 }
 
+export async function deleteEvent(eventId: string) {
+  await dynamoClient.send(
+    new DeleteCommand({
+      TableName: env.eventsTable,
+      Key: { id: eventId }
+    })
+  );
+}
+
 export async function adjustEventCurrentCount(eventId: string, delta: number) {
   await dynamoClient.send(
     new UpdateCommand({

@@ -126,7 +126,7 @@
   }
 
   function eventActions(event) {
-    return '<div class="teacher-event-action-strip"><a href="teacher-event-detail.html?event=' + encodeURIComponent(event.id) + '" style="color:#fff;font-size:12px;font-weight:700;">View</a><button type="button" data-edit-event="' + teacher.escapeHtml(event.id) + '" style="color:#fff;font-size:12px;font-weight:700;">Edit</button></div>';
+    return '<div class="teacher-event-action-strip"><a href="teacher-event-detail.html?event=' + encodeURIComponent(event.id) + '" style="color:#fff;font-size:12px;font-weight:700;">View</a><button type="button" data-edit-event="' + teacher.escapeHtml(event.id) + '" style="color:#fff;font-size:12px;font-weight:700;margin-left:8px;">Edit</button><button type="button" data-delete-event="' + teacher.escapeHtml(event.id) + '" style="color:#fff;font-size:12px;font-weight:700;margin-left:8px;">Delete</button></div>';
   }
 
   function statusBanner(event) {
@@ -430,9 +430,27 @@
     }
   }
 
+  async function deleteEvent(event) {
+    if (!window.confirm("Are you sure you want to permanently delete this event? This action cannot be undone.")) {
+      return;
+    }
+    
+    try {
+      await teacher.apiRequest("/events/" + event.id, { method: "DELETE" });
+      state.events = state.events.filter(function (e) { return e.id !== event.id; });
+      teacher.pushNotification("Event Deleted", event.title + " was removed from the shared portal.");
+      renderTabs();
+      renderFilters();
+      renderGrid();
+    } catch (error) {
+      teacher.showMessage(error.message || "Failed to delete event.", "error");
+    }
+  }
+
   document.addEventListener("click", function (event) {
     const tab = event.target.closest("[data-tab]");
     const editButton = event.target.closest("[data-edit-event]");
+    const deleteButton = event.target.closest("[data-delete-event]");
     if (tab) {
       state.tab = tab.getAttribute("data-tab");
       renderTabs();
@@ -443,6 +461,12 @@
       const target = state.events.find(function (item) { return item.id === editButton.getAttribute("data-edit-event"); });
       if (target) {
         openCreateModal(target);
+      }
+    }
+    if (deleteButton) {
+      const target = state.events.find(function (item) { return item.id === deleteButton.getAttribute("data-delete-event"); });
+      if (target) {
+        deleteEvent(target);
       }
     }
   });

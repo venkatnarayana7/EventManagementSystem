@@ -19,6 +19,7 @@ import {
   listEvents,
   listRegistrationsByEvent,
   saveEvent,
+  deleteEvent,
   type EventRecord
 } from "../../../shared/src/dynamo-repository";
 
@@ -366,6 +367,33 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       });
 
       return json(200, withOrganizerName(updated));
+    }
+
+    if (event.httpMethod === "DELETE" && event.pathParameters?.id) {
+      ensureRole(auth.role, ["admin", "teacher"]);
+      const targetEvent = await getEventById(event.pathParameters.id);
+
+      if (!targetEvent) {
+        return json(404, { message: "Event not found" });
+      }
+
+      if (
+        auth.role === "teacher" &&
+        targetEvent.created_by !== actor.id &&
+        targetEvent.created_by !== actor.cognito_sub
+      ) {
+        return json(403, { message: "Teachers can only delete their own events" });
+      }
+
+      await deleteEvent(event.pathParameters.id);
+
+      await broadcastRealtime("event_rejected", {
+        eventId: targetEvent.id,
+        eventTitle: targetEvent.title,
+        reason: "Event was deleted"
+      });
+
+      return json(200, { message: "Event deleted successfully" });
     }
 
     return json(404, { message: "Route not found" });

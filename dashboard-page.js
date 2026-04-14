@@ -1104,7 +1104,7 @@
         return [
           '<article class="event-card" data-event-id="' + escapeHtml(event.id) + '" style="background:' + background + ';">',
           '<span class="event-about">' + escapeHtml(event.status.replace(/_/g, " ")) + "</span>",
-          '<button class="event-delete-btn" data-event-id="' + escapeHtml(event.id) + '" data-event-title="' + escapeHtml(event.title) + '" title="Delete event" style="position:absolute;top:8px;right:8px;background:rgba(239,68,68,0.85);border:none;border-radius:6px;color:#fff;cursor:pointer;padding:4px 8px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;z-index:2;"><span class=\"material-symbols-outlined\" style=\"font-size:14px;\">delete</span></button>',
+          '<button class="event-delete-btn" data-event-id="' + escapeHtml(event.id) + '" data-event-title="' + escapeHtml(event.title) + '" title="Delete event" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.55);border:none;border-radius:6px;color:#fff;cursor:pointer;padding:4px 8px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;z-index:2;"><span class=\"material-symbols-outlined\" style=\"font-size:14px;\">delete</span></button>',
           "<div>",
           '<div class="event-title">' + escapeHtml(event.title) + "</div>",
           '<div class="event-meta">',
@@ -1539,8 +1539,10 @@
     throw lastError || new Error("Request failed");
   }
 
-  async function loadDashboard() {
-    renderLoadingSummary();
+  async function loadDashboard(silent) {
+    if (!silent) {
+      renderLoadingSummary();
+    }
 
     try {
       const user = await retryApi("/users/me", 5, 1200);
@@ -1793,7 +1795,7 @@
           var deletedCard = document.querySelector('[data-event-id="' + message.data.eventId + '"]');
           if (deletedCard) { deletedCard.remove(); }
         }
-        loadDashboard();
+        loadDashboard(true);
       }
     });
   }

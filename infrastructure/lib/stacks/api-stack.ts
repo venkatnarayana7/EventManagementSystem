@@ -58,7 +58,8 @@ export class ApiStack extends cdk.Stack {
       OTP_SENDER_EMAIL: props.otpSenderEmail ?? "no-reply@example.com",
       USER_POOL_ID: props.auth.userPoolId,
       USER_POOL_CLIENT_ID: props.auth.userPoolClientId,
-      WS_MANAGEMENT_ENDPOINT: ""
+      WS_MANAGEMENT_ENDPOINT: "",
+      FORCE_DEPLOY: new Date().toISOString()
     };
 
     const eventsHandler = this.createHandler("EventsHandler", "functions/events-handler/src/index.handler", backendLambdaRoot, lambdaEnvironment, props.envName);
@@ -81,6 +82,7 @@ export class ApiStack extends cdk.Stack {
     props.data.eventsTable.grantReadWriteData(eventsHandler);
     props.data.eventsTable.grantReadWriteData(registrationsHandler);
     props.data.eventsTable.grantReadWriteData(analyticsHandler);
+    props.data.eventsTable.grantReadWriteData(attendanceHandler);
     props.data.registrationsTable.grantReadWriteData(eventsHandler);
     props.data.registrationsTable.grantReadWriteData(registrationsHandler);
     props.data.registrationsTable.grantReadWriteData(attendanceHandler);
@@ -187,6 +189,7 @@ export class ApiStack extends cdk.Stack {
     const eventById = eventsResource.addResource("{id}");
     eventById.addMethod("GET", new apigateway.LambdaIntegration(eventsHandler), methodOptions);
     eventById.addMethod("PUT", new apigateway.LambdaIntegration(eventsHandler), methodOptions);
+    eventById.addMethod("DELETE", new apigateway.LambdaIntegration(eventsHandler), methodOptions);
     eventById.addResource("registrations").addMethod("GET", new apigateway.LambdaIntegration(eventsHandler), methodOptions);
     eventById.addResource("staff").addResource("join").addMethod("PUT", new apigateway.LambdaIntegration(eventsHandler), methodOptions);
     eventById.addResource("approve").addMethod("PUT", new apigateway.LambdaIntegration(eventsHandler), methodOptions);
